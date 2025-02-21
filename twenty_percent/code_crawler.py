@@ -124,7 +124,9 @@ class CodeAnalyzer:
         print(f"Dataset saved to {output_filename}")
 
 def main():
-    repo_path = "/home/jonny/python/ONS/rdsa-utils"  # **CHANGE THIS TO YOUR REPO PATH**
+    #repo_path = "/home/jonny/python/ONS/rdsa-utils" 
+    repo_path = "D:/coding_repos/rdsa-utils"
+     # **CHANGE THIS TO YOUR REPO PATH**
     repo_name = "rdsa-utils" # **CHANGE THIS TO YOUR REPO NAME**
 
     analyzer = CodeAnalyzer(repo_path, repo_name)
