@@ -7,7 +7,6 @@ class CodeAnalyzer:
         self.repo_path = repo_path
         self.repo_name = repo_name
         self.output_file_path = output_file_path
-        self.dataset = []  # List to hold function data
 
     def analyze_repo(self):
         """Walks through the repository and analyzes Python files."""
@@ -130,6 +129,7 @@ def main():
     output_file_path = "/home/jonny/python/dictionary_output"
 
     analyzer = CodeAnalyzer(repo_path, repo_name, output_file_path)
+
     analyzer.analyze_repo()
     print("Analysis complete.")
 

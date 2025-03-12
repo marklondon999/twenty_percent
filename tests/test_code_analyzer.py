@@ -1,6 +1,10 @@
 import unittest
 import ast
 from code_analyzer import CodeAnalyzer  # Assuming your class is in code_analyzer.py
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from twenty_percent.code_analyzer import CodeAnalyzer
 
 class TestCodeAnalyzer(unittest.TestCase):
 
@@ -16,7 +20,7 @@ class TestCodeAnalyzer(unittest.TestCase):
         for node in ast.walk(tree):
             if isinstance(node, ast.FunctionDef) and node.name == function_name:
                 return node, code_string  # Return node and original source
-        self.fail(f"Function '{function_name}' not found in code string.") # Fail if function not found
+        self.fail(f"Function '{function_name}' not found in code string.")  # Fail if function not found
 
     def test_analyze_function_basic(self):
         """Test analyze_function with a basic function."""
@@ -55,6 +59,7 @@ def test_function(arg1):
         self.assertEqual(self.analyzer.dataset[1]['variables'], ['arg1', 'variable2'])
 
 
+
     def test_analyze_function_complex_vars(self):
         """Test analyze_function with complex variable extraction (comprehensions, try)."""
         code = """
@@ -85,6 +90,7 @@ def test_function(arg1, *args, kw_only, **kwargs):
         self.assertEqual(self.analyzer.dataset[3]['variables'], ['arg1', 'args', 'kw_only', 'kwargs', 'z'])
 
 
+
     def test_analyze_function_code_extraction_indentation(self):
         """Test analyze_function correctly extracts code with indentation and comments."""
         code = """
@@ -96,7 +102,9 @@ def test_function(value):
     else:
         result = value / 2
     # Comment after the if/else
+
     return result # Inline comment
+
 """
         function_node, source = self._get_function_node_and_source(code)
         self.analyzer.analyze_function(function_node, "indent_file.py", source)
