@@ -3,9 +3,10 @@ import ast
 import json
 
 class CodeAnalyzer:
-    def __init__(self, repo_path, repo_name):
+    def __init__(self, repo_path, repo_name, output_file_path):
         self.repo_path = repo_path
         self.repo_name = repo_name
+        self.output_file_path = output_file_path
         self.dataset = []  # List to hold function data
 
     def analyze_repo(self):
@@ -118,7 +119,7 @@ class CodeAnalyzer:
 
     def save_dataset(self):
         """Saves the dataset to a JSON file."""
-        output_filename = f"{self.repo_name}_code_dataset.json" # Or .sqlite if using SQLite
+        output_filename = f"{self.output_file_path}/{self.repo_name}_code_dataset.json" # Or .sqlite if using SQLite
         with open(output_filename, "w") as f:
             json.dump(self.dataset, f, indent=4) # Pretty printing for readability
         print(f"Dataset saved to {output_filename}")
@@ -126,8 +127,9 @@ class CodeAnalyzer:
 def main():
     repo_path = "/home/jonny/python/ONS/rdsa-utils"  # **CHANGE THIS TO YOUR REPO PATH**
     repo_name = "rdsa-utils" # **CHANGE THIS TO YOUR REPO NAME**
+    output_file_path = "/home/jonny/python/dictionary_output"
 
-    analyzer = CodeAnalyzer(repo_path, repo_name)
+    analyzer = CodeAnalyzer(repo_path, repo_name, output_file_path)
     analyzer.analyze_repo()
     print("Analysis complete.")
 
